@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:sans-serif;
+} 
+.main-div{
+    width: 100vw;
+     min-height: 100vw; 
+    display: grid;
+    place-items: center;
+    background-color:rgb(255, 255, 255)
+    box-shadow(42, 138, 177);
+}
+html{
+    font-size: 50.5%;
+}
+.inner-div{
+    width: 100vh;
+    padding: 3rem 8rem;
+    background-color: rgb(100, 236, 236);
+    border-radius: 1rem;
+    /* box-shadow: 0 1rem 1rem -0.5rem rgb(15, 15, 15) ; */
+
+}
+.inner-div h1{
+    font-size:1.5rem;
+    font-weight: bold;
+    margin: 1rem 0 2rem 0;
+    margin-left:  0;
+}
+.inner-div li{
+    font-size:1.5rem;
+    list-style: none;
+    margin-top: 1.5rem;
+
+}
+input{
+    cursor: pointer;
+}
+#submit,.btn{
+    padding: 1rem 3rem;
+    outline: none;
+    font-size: 1.5rem;
+    font-size: 400;
+    display:block;
+    margin: auto;
+    border: none;
+    text-transform: uppercase;
+    color: darkgray;
+    background-color:rgb(171, 160, 160);
+    margin-top: 4rem;
+border-radius: 4px;
+
+}
+#submit:hover{
+    background-color: rgb(42, 138, 177);
+}
+#showScore{
+    background-color: rgb(24, 144, 148);
+    margin-top: 3rem;
+    padding:3rem 4rem ;
+    box-shadow: 0 1rem 1rem -0.5rem rgb(15, 15, 15) ;
+border-radius: 10px;
+}
+.scoreArea{
+display: none;
+}
+#showScore h3{
+    font-size: 3rem;
+    text-align: center;
+   
+}
+#showScore .btn{
+margin-top: 2rem;
+background-color: rgb(139, 176, 190);
+}
+    </style>
+</head>
+<body>
+           <div class="main-div">
+            <h1>Quiz App</h1>
+               <div class="inner-div">
+                  <h1 class="question">Question comes here</h1>
+               <ul>
+                   <li>
+                       <input type="radio" name="answer" id="ans1" class="answer">
+                       <label for="ans1" id="option1">Answer</label>
+                   </li>
+                   <li>
+                    <input type="radio" name="answer" id="ans2" class="answer">
+                    <label for="ans1" id="option2">Answer</label>
+                </li> 
+                <li>
+                    <input type="radio" name="answer" id="ans3" class="answer">
+                    <label for="ans1" id="option3">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" id="ans4" class="answer">
+                    <label for="ans1" id="option4">Answer</label>
+                </li>
+               </ul>
+               <button id="submit">Submit</button>
+               <div id="showScore" class="scoreArea">
+
+               </div>
+                </div>
+           </div>
+           <script >
+            var quizDB =[
+    {
+        question: "HTML full form",
+        ans:"hyper text markup language",
+       
+         a:   "hyper text markup language",
+          b:  "hyper typo markup language",
+           c: "hyper text market language",
+           d: "none of above"
+            
+       
+    },
+    
+    {
+        question: "CPU full form",
+      
+
+            a: "central procecution unit",
+            b:"central processing unit",
+            c:"control processing unit",
+            d:  "none of above",
+            ans:"ans3", 
+            
+            
+            
+        
+    },
+    {
+        question: "RAM full form",
+      
+       
+           a: "random execution memory",
+           b: "random account memory",
+          c:  "random access memory",
+          d:  "none of above",
+          ans:"ans3",
+        
+    },
+    {
+        question: "USB full form",
+       
+       
+          a:  "universal system bus",
+          b:  "universal serial bus",
+          c:  "universal sound bus",
+          d:  "none of above",
+          ans:"ans2",
+      
+    },
+    {
+        question: "SEO full form",
+        
+      
+          a:  "search engine optimization",
+          b:  "sound engine optimization",
+          c:  "search engineer optimization",
+          d:  "none of above",
+          ans:"ans2",
+        
+    },
+    {
+        question: "LCD full form",
+       
+       
+        a:    "liquid cyber display",
+          b:  "liquid crystal display",
+           c: "liquid crystal disorder",
+           d: "none of above",
+           ans:"ans3",
+        
+    },
+]
+
+
+
+
+
+
+
+let question =document.querySelector('.question');
+let option1 =document.querySelector('#option1');
+let option2 =document.querySelector('#option2');
+let option3 =document.querySelector('#option3');
+let option4 =document.querySelector('#option4');
+let submit =document.querySelector('#submit');
+let answers =document.querySelectorAll('.answer');
+let questionCount=0;
+let score =0;
+let showScore = document.getElementById("showScore")
+function loadQuestion(){
+    let questionList =quizDB[questionCount];
+    question.innerHTML=questionList.question;
+
+    //option1.innerHTML=quizDB[0].a;
+    option1.innerHTML=questionList.a;
+    option2.innerHTML=questionList.b;
+    option3.innerHTML=questionList.c;
+    option4.innerHTML=questionList.d;
+
+}
+
+loadQuestion();
+function getCheckAnswer(){
+    let answer;
+    answers.forEach((curAnsElem) => {
+        if(curAnsElem.checked)//jo bhe elemnt he current agar woh checked he to nechay wale line men uske id mang rahay hen
+       answer=curAnsElem.id;
+    });
+    return answer;
+}
+function delselect() {
+    answers.forEach((curAnsElem) => curAnsElem.checked=false)
+};
+//ab jis button pay click 
+submit.addEventListener('click',function(){
+    const checkedAnswer = getCheckAnswer();
+    console.log(checkedAnswer);
+//ismen check kia he kay asnewr sahi he to score plus plus kardo
+    if(checkedAnswer == quizDB[questionCount].ans){
+        score++;
+    };
+    questionCount++ ;
+    delselect();
+     if(questionCount<quizDB.length){
+        loadQuestion();
+     } 
+     else{
+//showScore.innerHTML=("Your Scored is ",score/quizDB.length ) ;
+showScore.innerHTML = `<h3> Your Scored is ${score}/${quizDB.length}</h3>
+<button class="btn onclick="location.reload()">Play Again</button>`;
+showScore.classList.remove('scoreArea'); 
+}
+
+})
+           </script>
+</body>
+</html>
